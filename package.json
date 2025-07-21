@@ -15,10 +15,12 @@
   },
   "dependencies": {
     "@antfu/eslint-config": "^4.17.0",
+    "@libsql/client": "^0.15.10",
     "@nuxt/eslint": "^1.6.0",
     "@nuxt/icon": "1.15.0",
     "@nuxtjs/color-mode": "3.5.2",
     "@tailwindcss/vite": "^4.1.11",
+    "drizzle-orm": "^0.44.3",
     "eslint": "^9.31.0",
     "nuxt": "^4.0.0",
     "tailwindcss": "^4.1.11",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "daisyui": "^5.0.46",
+    "drizzle-kit": "^0.31.4",
     "eslint-plugin-format": "^1.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2"

@@ -1,27 +1,18 @@
 /* eslint-disable node/no-process-env */
 import type { ZodObject, ZodRawShape } from "zod";
 
-import { ZodError } from "zod";
-
 export default function tryParseEnv<T extends ZodRawShape>(
   EnvSchema: ZodObject<T>,
   buildEnv: Record<string, string | undefined> = process.env,
 ) {
-  try {
-    EnvSchema.parse(buildEnv);
-  }
-  catch (error) {
-    if (error instanceof ZodError) {
-      let message = "Missing required values in .env:\n";
-      error.issues.forEach((issue) => {
-        message += `${issue.path[0]}\n`;
-      });
-      const e = new Error(message);
-      e.stack = "";
-      throw e;
-    }
-    else {
-      console.error(error);
-    }
+  const result = EnvSchema.safeParse(buildEnv);
+
+  if (!result.success) {
+    const missingKeys = result.error.issues.map(issue => issue.path.join("."));
+    const message = `Missing or invalid values in .env:\n${missingKeys.map(key => `- ${key}`).join("\n")}`;
+
+    const error = new Error(message);
+    error.stack = "";
+    throw error;
   }
 }
