@@ -15,6 +15,13 @@
       "when": 1753080392652,
       "tag": "0001_open_sphinx",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1753177242416,
+      "tag": "0002_useful_lethal_legion",
+      "breakpoints": true
     }
   ]
 }
