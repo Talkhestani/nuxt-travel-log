@@ -1,7 +1,12 @@
+<script lang="ts" setup>
+const { init } = useAuthStore();
+await init();
+</script>
+
 <template>
   <div class="flex min-h-screen flex-col">
-    <main>
-      <AppNavBar />
+    <AppNavBar />
+    <main class="flex-1 flex flex-col">
       <slot />
     </main>
   </div>
