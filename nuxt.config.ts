@@ -21,6 +21,11 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
+  nitro: {
+    devProxy: {
+      host: "localhost",
+    },
+  },
   vite: {
     plugins: [
       tailwindcss(),
