@@ -21,6 +21,7 @@ const onSubmit = handleSubmit(async (values) => {
       body: values,
     });
     submitted.value = true;
+    submitError.value = "";
     resetForm();
   }
   catch (e) {
