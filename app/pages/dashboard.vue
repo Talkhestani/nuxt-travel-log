@@ -61,7 +61,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="flex-1 p-4">
-      <h1>hello world !</h1>
+      <NuxtPage />
     </div>
   </div>
 </template>
