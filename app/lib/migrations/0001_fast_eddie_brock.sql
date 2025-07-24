@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `location_userId_name_unique` ON `location` (`userId`,`name`);

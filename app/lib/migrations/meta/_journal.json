@@ -8,6 +8,13 @@
       "when": 1753179586902,
       "tag": "0000_sticky_christian_walker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1753385401342,
+      "tag": "0001_fast_eddie_brock",
+      "breakpoints": true
     }
   ]
 }
