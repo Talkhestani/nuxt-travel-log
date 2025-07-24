@@ -8,7 +8,7 @@ const db = drizzle({
     url: env.TURSO_DATABASE_URL!,
     authToken: env.TURSO_AUTH_TOKEN!,
   },
-  casing: "snake_case",
+  casing: "camelCase",
   schema,
 });
 
