@@ -9,7 +9,7 @@ const submitted = ref(false);
 const loading = ref(false);
 const { $csrfFetch } = useNuxtApp();
 
-const { handleSubmit, errors, meta, setErrors } = useForm({
+const { handleSubmit, errors, meta, setErrors, resetForm } = useForm({
   validationSchema: toTypedSchema(InsertLocation),
 });
 
@@ -20,15 +20,15 @@ const onSubmit = handleSubmit(async (values) => {
       method: "POST",
       body: values,
     });
-    loading.value = false;
     submitted.value = true;
+    resetForm();
   }
   catch (e) {
     const error = e as FetchError;
-    setErrors(error.data?.data);
+    setErrors(error.data);
     submitError.value = error.statusMessage || "An unknown error occurred.";
-    loading.value = false;
   }
+  loading.value = false;
 });
 
 onBeforeRouteLeave(() => {
@@ -51,7 +51,6 @@ onBeforeRouteLeave(() => {
       <h1 class="text-lg">
         Add Location
       </h1>
-
       <p class="text-sm" />
     </div>
     <div
