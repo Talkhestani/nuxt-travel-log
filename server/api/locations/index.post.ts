@@ -1,14 +1,8 @@
 import { createLocation, findUniqueSlugLocation } from "~/lib/db/queries/location";
 import { InsertLocation } from "~/lib/db/schema";
+import defineAuthenticateEventHandler from "~/utils/define-authenticate-event-handler";
 
-export default defineEventHandler(async (event) => {
-  if (!event.context.user) {
-    return sendError(event, createError({
-      statusCode: 401,
-      statusMessage: "Unauthorized",
-    }));
-  }
-
+export default defineAuthenticateEventHandler(async (event) => {
   const result = await readValidatedBody(event, InsertLocation.safeParse);
 
   if (!result.success) {

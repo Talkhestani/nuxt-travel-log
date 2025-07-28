@@ -9,6 +9,12 @@ import { location } from "~/lib/db/schema";
 
 const nanoid = customAlphabet("1234567890abcdef", 5);
 
+export async function findLocations(userId: number) {
+  return db.query.location.findMany({
+    where: eq(location.userId, userId),
+  });
+}
+
 export async function findLocationBySlug(slug: string): Promise<LOCATION | undefined> {
   return await db.query.location.findFirst({
     where: eq(location.slug, slug),
