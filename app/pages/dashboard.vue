@@ -1,14 +1,9 @@
 <script lang="ts" setup>
 const isToggle = ref<boolean>(true);
+const sidebarStore = useSidebarStore();
+const locationStore = useLocationsStore();
 
-const SIDEBAR_LINKS: {
-  label: string;
-  icon: string;
-  href: string;
-}[] = [
-  { label: "Locations", icon: "tabler:map", href: "/dashboard" },
-  { label: "Add Location", icon: "tabler:plus", href: "/dashboard/add" },
-];
+const route = useRoute();
 
 function handleToggle() {
   localStorage.setItem("isSidebarOpen", String(!isToggle.value));
@@ -18,6 +13,10 @@ function handleToggle() {
 onMounted(() => {
   const toggleStatus = localStorage.getItem("isSidebarOpen");
   isToggle.value = toggleStatus === "true";
+
+  if (route.path === "/dashboard") {
+    locationStore.refresh();
+  }
 });
 </script>
 
@@ -42,13 +41,27 @@ onMounted(() => {
       </div>
       <div class="flex flex-col">
         <SidebarButton
-          v-for="(link, index) in SIDEBAR_LINKS"
+          v-for="(link, index) in sidebarStore.sidebarItems"
           :key="index"
           :icon="link.icon"
           :label="link.label"
-          :href="link.href"
+          :href="link.href || '#'"
           :show-label="isToggle"
         />
+
+        <div v-if="sidebarStore.locationItems.length > 0" class="divider" />
+
+        <div v-if="sidebarStore.isLoading && sidebarStore.locationItems.length > 0" class="skeleton h-4 w-[80%] mx-auto" />
+        <div v-else-if="sidebarStore.locationItems.length > 0" class="flex flex-col">
+          <SidebarButton
+            v-for="(link, index) in sidebarStore.locationItems"
+            :key="index"
+            :icon="link.icon"
+            :label="link.label"
+            :href="link.href || '#'"
+            :show-label="isToggle"
+          />
+        </div>
 
         <div class="divider" />
 

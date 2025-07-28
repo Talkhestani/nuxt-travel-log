@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { customAlphabet } from "nanoid/non-secure";
 import slugify from "slug";
 
-import type { LOCATION } from "~/lib/db/schema";
+import type { INSERT_LOCATION } from "~/lib/db/schema";
 
 import db from "~/lib/db";
 import { location } from "~/lib/db/schema";
@@ -15,7 +15,7 @@ export async function findLocations(userId: number) {
   });
 }
 
-export async function findLocationBySlug(slug: string): Promise<LOCATION | undefined> {
+export async function findLocationBySlug(slug: string): Promise<INSERT_LOCATION | undefined> {
   return await db.query.location.findFirst({
     where: eq(location.slug, slug),
   });
@@ -38,7 +38,7 @@ export async function findUniqueSlugLocation(name: string) {
   return slug;
 }
 
-export async function createLocation(validatedData: { data: LOCATION }, slug: string, userId: number) {
+export async function createLocation(validatedData: { data: INSERT_LOCATION }, slug: string, userId: number) {
   return await db.insert(location).values({
     ...validatedData.data,
     slug,
